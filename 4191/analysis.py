@@ -37,6 +37,19 @@ if __name__ == '__main__':
         for i in range(len(R)):
             R_int = R[i]
             x,y = C[i]
+
+            real_R = 6.5/200
+            world_points = np.array([
+                [-real_R, 0, 0],      # left
+                [real_R, 0, 0],       # right
+                [0, real_R, 0],  # top
+                [0, -real_R, 0]        # bottom
+            ], dtype=np.float32)
+            pos_array = np.array([[x - R_int, y], [x + R_int, y], [x, y + R_int], [x, y-R_int]], dtype=np.float32)
+            print('pos_array\n', pos_array)
+            success, rvec, tvec = cv2.solvePnP(world_points, pos_array, mtx, dist)
+            distance = np.linalg.norm(tvec)
+            print('distance',distance)
             cv2.circle(frame, (x,y), 1, (0,0,255), 8)
             cv2.rectangle(frame, (x-R_int, y-R_int), (x + R_int, y + R_int), (0, 0, 255), 3)
             print('circle number : ', i+1 , 'position ' , x-320, y-240)
