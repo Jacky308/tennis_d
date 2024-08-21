@@ -2,7 +2,8 @@ import cv2
 import numpy as np
 import time
 from tennis_detect import tennis_detctor
-    
+mtx = np.genfromtxt("calib_mtx_webcam.csv")
+dist = np.genfromtxt("calib_dist_webcam.csv")
 if __name__ == '__main__':
 
     #vid = cv2.VideoCapture(2)
